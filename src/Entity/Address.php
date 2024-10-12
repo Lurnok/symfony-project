@@ -33,6 +33,9 @@ class Address
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'adress')]
     private Collection $users;
 
+    #[ORM\Column]
+    private ?int $no = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -124,6 +127,18 @@ class Address
                 $user->setAdress(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNo(): ?int
+    {
+        return $this->no;
+    }
+
+    public function setNo(int $no): static
+    {
+        $this->no = $no;
 
         return $this;
     }

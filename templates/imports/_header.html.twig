@@ -1,0 +1,61 @@
+<style>
+    .dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0;
+    }
+
+    .two-col-drop{
+        min-width: 400px !important; 
+    }
+
+</style>
+<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand"href="{{ path('home') }}">
+        <img class="navbar-icon" src=' {{ asset('images/icon.png') }} ' style="width: 50px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link {% if app.request.attributes.get('_route') == 'home' %}active{% endif %}" href="{{ path('home') }}">{{ 'home'|trans }}
+            <span class="visually-hidden">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if app.request.attributes.get('_route') == 'product_index' %}active{% endif %}" href="{{ path('product_index') }}"> {{ 'all_products'|trans }}</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% if app.request.attributes.get('_route') == 'product_by_categ' %}active{% endif %}" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ 'categories'|trans }}</a>
+          <div class="dropdown-menu two-col-drop">
+            <div class="row">
+                <div class="col-6">
+                    <h6 class="dropdown-header">WCA</h6>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ path('product_by_categ', {categ: "2x2"}) }}">2x2</a>
+                    <a class="dropdown-item" href="{{ path('product_by_categ', {categ: "3x3"}) }}">3x3</a>
+                    <a class="dropdown-item" href="{{ path('product_by_categ', {categ: "4x4"}) }}">4x4</a>
+                    <a class="dropdown-item" href="{{ path('product_by_categ', {categ: "5x5"}) }}">5x5</a>
+                    <a class="dropdown-item" href="{{ path('product_by_categ', {categ: "6x6"}) }}">6x6</a>
+                    <a class="dropdown-item" href="{{ path('product_by_categ', {categ: "7x7"}) }}">7x7</a>
+                    <a class="dropdown-item" href="{{ path('product_by_categ', {categ: "Megaminx"}) }}">Megaminx</a>
+                    <a class="dropdown-item" href="{{ path('product_by_categ', {categ: "Pyraminx"}) }}">Pyraminx</a>
+                    <a class="dropdown-item" href="{{ path('product_by_categ', {categ: "Skewb"}) }}">Skewb</a>
+                    <a class="dropdown-item" href="{{ path('product_by_categ', {categ: "Square-1"}) }}">Square-1</a>
+                </div>
+                <div class="col-6">
+                    <h6 class="dropdown-header">{{ 'other'|trans }}</h6>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ path('product_by_categ', {categ: "Grands cubes"}) }}">{{ 'big_cubes'|trans }}</a>
+                    <a class="dropdown-item" href="{{ path('product_by_categ', {categ: "Cuboides"}) }}">{{ 'cuboids'|trans }}</a>
+                    <a class="dropdown-item" href="{{ path('product_by_categ', {categ: "Shape mods"}) }}">{{ 'shape_mods'|trans }}</a>
+                </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

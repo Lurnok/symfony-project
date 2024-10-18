@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if all %}
+        {{ 'all_products'|trans }} · CubeMarket
+    {% else %}
+        {{ categ }} · CubeMarket
+    {% endif %}
+{% endblock %}
+
+
+{% block body %}
+    <div class="mb-5"></div>
+    <div class="row">
+        {% for product in products %}
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card" style="width: 80%;">
+                    <img src={{ asset(product.image.url) }} class="card-img-top" alt="image_not_found">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <a href="#" class="btn btn-primary">Detail</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

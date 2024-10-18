@@ -47,37 +47,37 @@ class CategoryFixture extends Fixture
         $category8 = new Category();
         $category8->setDescription('Megaminx');
         $manager->persist($category8);
-        $this->addReference(self::CATEGORY_REFERENCE . '_8', $category8);
+        $this->addReference(self::CATEGORY_REFERENCE . '_7', $category8);
 
         $category9 = new Category();
         $category9->setDescription('Pyraminx');
         $manager->persist($category9);
-        $this->addReference(self::CATEGORY_REFERENCE . '_9', $category9);
+        $this->addReference(self::CATEGORY_REFERENCE . '_8', $category9);
 
         $category10 = new Category();
         $category10->setDescription('Skewb');
         $manager->persist($category10);
-        $this->addReference(self::CATEGORY_REFERENCE . '_10', $category10);
+        $this->addReference(self::CATEGORY_REFERENCE . '_9', $category10);
 
         $category11 = new Category();
         $category11->setDescription('Square-1');
         $manager->persist($category11);
-        $this->addReference(self::CATEGORY_REFERENCE . '_11', $category11);
+        $this->addReference(self::CATEGORY_REFERENCE . '_10', $category11);
 
         $category12 = new Category();
         $category12->setDescription('Grands cubes');
         $manager->persist($category12);
-        $this->addReference(self::CATEGORY_REFERENCE . '_12', $category12);
+        $this->addReference(self::CATEGORY_REFERENCE . '_11', $category12);
 
         $category13 = new Category();
         $category13->setDescription('Cuboides');
         $manager->persist($category13);
-        $this->addReference(self::CATEGORY_REFERENCE . '_13', $category13);
+        $this->addReference(self::CATEGORY_REFERENCE . '_12', $category13);
 
         $category14 = new Category();
         $category14->setDescription('Shape mods');
         $manager->persist($category14);
-        $this->addReference(self::CATEGORY_REFERENCE . '_14', $category14);
+        $this->addReference(self::CATEGORY_REFERENCE . '_13', $category14);
 
         $manager->flush();
     }

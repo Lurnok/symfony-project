@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'admin_dashboard'|trans }} · CubeMarket
+{% endblock %}
+
+
+{% block body %}
+
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-dark">
+                <th scope="col">id</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Nombre de produits</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categ in categWithProductCount %}
+                <tr class="{% if categ.id % 2 == 0 %} table-secondary {% endif %}">
+                    <th scope="row">{{ categ.id }}</th>
+                    <td>{{ categ.description }}</td>
+                    <td>{{ categ.nbProduct }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    {{ render_chart(chart) }}
+
+    {{ dump(lastFiveOrders) }}
+
+{% endblock %}

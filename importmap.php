@@ -35,4 +35,7 @@ return [
     '@popperjs/core' => [
         'version' => '2.11.8',
     ],
+    'chart.js' => [
+        'version' => '3.9.1',
+    ],
 ];

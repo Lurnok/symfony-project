@@ -5,3 +5,10 @@ other : Autre
 big_cubes : Big Cubes
 cuboids : Cuboids
 shape_mods : Shape Mods
+welcome_title : Welcome to CubeMarket !
+welcome_message : Browse our amazing puzzles
+admin_dashboard : Admin dashboard
+new_product : New product
+add_new_product : Adding a new product
+back_to_product_list : Back to product list
+back_to_dashboard : Back to admin dashboard

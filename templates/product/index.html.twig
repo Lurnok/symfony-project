@@ -1,29 +1,59 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ knp_pagination_rel_links(pagination) }}
+{% endblock %}
+
 {% block title %}
-    {% if all %}
-        {{ 'all_products'|trans }} · CubeMarket
-    {% else %}
-        {{ categ }} · CubeMarket
-    {% endif %}
+	{% if all %}
+		{{ 'all_products'|trans }}
+		· CubeMarket
+	{% else %}
+		{{ categ }}
+		· CubeMarket
+	{% endif %}
 {% endblock %}
 
 
 {% block body %}
-    <div class="mb-5"></div>
-    <div class="row">
-        {% for product in products %}
-            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                <div class="card" style="width: 80%;">
-                    <img src={{ asset(product.image.url) }} class="card-img-top" alt="image_not_found">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="card-text">{{ product.description }}</p>
-                        <a href="#" class="btn btn-primary">Detail</a>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+	<div class="mb-5"></div>
+	<div class="container-fluid">
+		<div class="row wrapper">
+			{% for product in pagination %}
+				<div class="col-sm-6 col-md-4 col-lg-4 mb-4">
 
+					<a href="{{ path('product_detail', {id: product.id}) }}" class="text-reset">
+						<div class="card">
+							<div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
+								<img src={{ asset(product.image.url) }} alt="image_not_found" class="w-100"/>
+
+								<div class="mask">
+									<div class="d-flex justify-content-start align-items-end h-100">
+										<h5>
+											<span class="badge bg-success ms-2">{{ product.category.description }}</span>
+										</h5>
+									</div>
+								</div>
+								<div class="hover-overlay">
+									<div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+								</div>
+
+							</div>
+							<div class="card-body">
+
+								<h5 class="card-title mb-3">{{ product.name }}</h5>
+
+								<h6 class="mb-3">{{ product.price }}
+									€</h6>
+							</div>
+						</div>
+					</a>
+				</div>
+
+			{% endfor %}
+		</div>
+	</div>
+	<div class="navigation">
+		{{ knp_pagination_render(pagination) }}
+	</div>
 {% endblock %}

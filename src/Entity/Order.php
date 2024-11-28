@@ -33,6 +33,7 @@ class Order
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
     public function __construct()
@@ -129,4 +130,5 @@ class Order
 
         return $this;
     }
+
 }

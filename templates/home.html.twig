@@ -2,6 +2,20 @@
 
 {% block title %}{{ 'home'|trans }} · CubeMarket{% endblock %}
 
+
 {% block body %}
-    <h1>CubeMarket</h1>
+    <style>
+        .wrapper img {
+            max-width: 300px;
+        }
+    </style>
+    <div class="wrapper">
+        <div class="mb-5"></div>
+        <h1>{{ 'welcome_title'|trans }}</h1>
+        <br>
+        <img src={{ asset("images/icon.png") }}>
+        <br>
+        <div class="mb-5"></div>
+        <a class="btn btn-dark btn-lg" href="{{ path('product_index') }}">{{ 'welcome_message'|trans }}</a>
+    </div>
 {% endblock %}

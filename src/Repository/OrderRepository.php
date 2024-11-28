@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Order;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Enum\OrderStatusEnum;
 
 /**
  * @extends ServiceEntityRepository<Order>
@@ -31,35 +32,38 @@ class OrderRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Order
-    //    {
-    //        return $this->createQueryBuilder('o')
-    //            ->andWhere('o.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+       public function findOneById($id): ?Order
+       {
+           return $this->createQueryBuilder('o')
+               ->andWhere('o.id = :id')
+               ->setParameter('id', $id)
+               ->getQuery()
+               ->getOneOrNullResult()
+           ;
+       }
 
     public function getFiveLastOrders(): array {
         return $this->createQueryBuilder('o')
-            ->orderBy('o.createdAt','desc')
+            ->select('o', 'SUM(oi.quantity * oi.productPrice) AS orderValue')
+            ->leftJoin('o.items', 'oi')
+            ->groupBy('o.id') 
+            ->orderBy('o.createdAt', 'desc')
             ->setMaxResults(5)
             ->getQuery()
             ->getResult();
     }
 
-    public function getMonthlySalesData(): array
+    public function getProfitsByMonth(): array
     {
         return $this->createQueryBuilder('o')
-            ->select('SUBSTRING(o.createdAt, 1, 7) as month, SUM(oi.productPrice * oi.quantity) as totalSales')
-            ->andWhere('o.status = :shipped OR o.status = :delivered')
-            ->join('o.orderItem', 'oi')
+            ->select('CONCAT(SUBSTRING(o.createdAt, 6, 2),\'-\',SUBSTRING(o.createdAt, 1, 4)) as month, SUM(oi.productPrice * oi.quantity) as value')
+            ->andWhere('o.status = :expedie OR o.status = :livre')
+            ->join('o.items', 'oi')
             ->groupBy('month')
             ->orderBy('month', 'DESC')
             ->setMaxResults(12)
-            ->setParameter('shipped', 'Shipped')
-            ->setParameter('delivered', 'Delivered')
+            ->setParameter('expedie', OrderStatusEnum::expedie)
+            ->setParameter('livre', OrderStatusEnum::livre)
             ->getQuery()
             ->getResult();
     }

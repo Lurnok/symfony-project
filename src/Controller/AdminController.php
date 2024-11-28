@@ -54,6 +54,7 @@ class AdminController extends AbstractController
             ],
         ]);
         
+        $profitsByMonth = $orderRepository->getProfitsByMonth();
 
         return $this->render('admin/dashboard.html.twig', [
             'categWithProductCount' => $categWithProductCount,
@@ -61,6 +62,7 @@ class AdminController extends AbstractController
             'percentages' => $percentages,
             'chart' => $chart,
             'lastFiveOrders' => $lastFiveOrders,
+            'profitsByMonth' => $profitsByMonth,
         ]);
     }
 }

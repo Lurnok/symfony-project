@@ -8,4 +8,5 @@ enum OrderStatusEnum: string
     case expedie = "expediée";
     case livre = "en cours de livraison";
     case annule = "annulée";
+    case cart = "pannier";
 }

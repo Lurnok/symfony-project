@@ -17,6 +17,10 @@ class OrderItem
     private ?int $quantity = null;
 
     #[ORM\Column]
+    /**
+     * @Assert\NotBlank()
+     * @Assert\GreaterThanOrEqual(1)
+     */
     private ?float $productPrice = null;
 
     #[ORM\ManyToOne(inversedBy: 'orderItems')]

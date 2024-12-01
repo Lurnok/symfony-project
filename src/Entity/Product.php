@@ -84,7 +84,7 @@ class Product
 
     public function setDescription(string $description): static
     {
-        $this->description = $description;
+        $this->description = strlen($description) > 255 ? substr($description,0,255) : $description;
 
         return $this;
     }

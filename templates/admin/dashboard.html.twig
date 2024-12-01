@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'admin_dashboard'|trans }} · CubeMarket
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5>Nombre de produits par categorie</h5>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="table-dark">
+                                <th scope="col">ID</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Nombre de produits</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for categ in categWithProductCount %}
+                                <tr class="{% if categ.id % 2 == 0 %} table-secondary {% endif %}">
+                                    <th scope="row">{{ categ.id }}</th>
+                                    <td>{{ categ.description }}</td>
+                                    <td>{{ categ.nbProduct }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5>Part des status de disponibilité</h5>
+                </div>
+                <div class="card-body text-center">
+                    <div class="chart-container" style="max-width: 800px; margin: 0 auto;">
+                        {{ render_chart(chart) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5>Cinq dernières commandes</h5>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="table-dark">
+                                <th scope="col">ID</th>
+                                <th scope="col">Reference</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Produits</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Client</th>
+                                <th scope="col">Valeur</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in lastFiveOrders %}
+                                <tr class="{% if order[0].id % 2 == 0 %} table-secondary {% endif %}">
+                                    <th scope="row">{{ order[0].id }}</th>
+                                    <td>{{ order[0].reference }}</td>
+                                    <td>{{ order[0].status.value }}</td>
+                                    <td><a href="{{ path('order_detail', {id: order[0].id }) }}">voir</a></td>
+                                    <td>{{ order[0].createdAt|date('d-m-Y') }}</td>
+                                    <td>{{ order[0].user.email }}</td>
+                                    <td>{{ order.orderValue }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5>Profits des douze dernires mois</h5>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="table-dark">
+                                <th scope="col">Mois</th>
+                                <th scope="col">Profits</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key, month in profitsByMonth %}
+                                <tr class="{% if key % 2 == 0 %} table-secondary {% endif %}">
+                                    <th scope="row">{{ month.month }}</th>
+                                    <td>{{ month.value }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

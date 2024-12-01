@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	{{ knp_pagination_rel_links(pagination) }}
+{% endblock %}
+
+{% block title %}
+	{% if all %}
+		{{ 'all_products'|trans }}
+		· CubeMarket
+	{% else %}
+		{{ categ }}
+		· CubeMarket
+	{% endif %}
+{% endblock %}
+
+
+{% block body %}
+	 <script>
+		    if (typeof mercureHubUrl === 'undefined') {
+	    var mercureHubUrl = '{{ mercureHubUrl|e('js') }}';
+	}
+		    const productIds = {{ pagination|map(product => product.id)|json_encode|raw }};
+		
+		    productIds.forEach(productId => {
+		        const topicUrl = `/products/${productId}/stock`;
+		        const eventSource = new EventSource(`${mercureHubUrl}?topic=${encodeURIComponent(topicUrl)}`);
+		
+		        eventSource.onmessage = function(event) {
+		            const data = JSON.parse(event.data);
+		            const stockElement = document.querySelector(`#product-stock-${data.id}`);
+		            if (stockElement) {
+		                stockElement.textContent = `Stock: ${data.stock}`;
+		                stockElement.className = data.stock > 0 ? 'badge bg-success ms-2' : 'badge bg-danger ms-2';
+						const statusElement = document.querySelector(`#product-status-${data.id}`);
+						if(statusElement){
+							statusElement.textContent = data.stock > 0 ? statusElement.textContent : "Rupture de stock";
+							statusElement.className = data.stock > 0 ? statusElement.className : 'badge bg-danger ms-2';
+						}
+		            }
+		        };
+		
+		        eventSource.onerror = function(event) {
+		            console.error(`Error subscribing to updates for product ${productId}:`, event);
+		        };
+		    });
+		</script>
+	<div class="mb-5"></div>
+	<div class="container-fluid">
+		<div class="row wrapper">
+			{% for product in pagination %}
+				<div class="col-sm-6 col-md-4 col-lg-4 mb-4">
+
+					<a href="{{ path('product_detail', {id: product.id}) }}" class="text-reset">
+						<div class="card">
+							<div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
+								<img src={{ asset(product.image.url) }} alt="image_not_found" class="w-100"/>
+
+								<div class="mask">
+									<div class="d-flex justify-content-start align-items-end h-100">
+										<h5>
+											<span class="badge bg-success ms-2">{{ product.category.description }}</span>
+										</h5>
+										<h5>
+											{% if product.status.value == "rupture de stock" %}
+												<span id="product-status-{{ product.id }}" class="badge bg-danger ms-2">{{ product.status.value }}</span>
+											{% elseif product.status.value == "précommande" %}
+												<span id="product-status-{{ product.id }}" class="badge bg-info ms-2">{{ product.status.value }}</span>
+											{% else %}
+												<span id="product-status-{{ product.id }}" class="badge bg-success ms-2">{{ product.status.value }}</span>
+											{% endif %}
+										</h5>
+										<h5>
+											{% if product.stock > 0 %}
+												<span id="product-stock-{{ product.id }}" class="badge bg-success ms-2">Stock :
+													{{ product.stock }}</span>
+											{% else %}
+												<span id="product-stock-{{ product.id }}" class="badge bg-danger ms-2">Stock :
+													{{ product.stock }}</span>
+											{% endif %}
+										</h5>
+									</div>
+								</div>
+								<div class="hover-overlay">
+									<div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+								</div>
+
+							</div>
+							<div class="card-body">
+
+								<h5 class="card-title mb-3">{{ product.name }}</h5>
+
+								<h6 class="mb-3">{{ product.price }}
+									€</h6>
+							</div>
+						</div>
+					</a>
+				</div>
+
+			{% endfor %}
+		</div>
+		<div class="navigation">
+		{{ knp_pagination_render(pagination) }}
+	</div>
+	</div>
+	
+{% endblock %}

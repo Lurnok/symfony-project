@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Detail · CubeMarket
+{% endblock %}
+
+
+{% block body %}
+	<style>
+		.checked {
+			color: orange;
+		}
+	</style>
+	<script>
+	    const productId = '{{ product.id }}';
+	    const topicUrl = `/products/${productId}/stock`;
+		if (typeof mercureHubUrl === 'undefined') {
+		    var mercureHubUrl = '{{ mercureHubUrl|e('js') }}';
+		}
+
+	    const eventSource = new EventSource(mercureHubUrl + '?topic=' + encodeURIComponent(topicUrl));
+	
+		console.log(eventSource.readyState);
+	    eventSource.onmessage = function(event) {
+	        const data = JSON.parse(event.data);
+	
+			const stockInfo = document.getElementById('stock-info');
+	        stockInfo.textContent = `Stock: ${data.stock}`;
+			stockInfo.className = data.stock == 0 ? "badge bg-danger ms-2" : stockInfo.className;
+			
+			const statusInfo = document.getElementById('status-info');
+			statusInfo.textContent = data.stock == 0 ? "rupture de stock" : statusInfo.textContent;
+			statusInfo.className = data.stock == 0 ? "badge bg-danger ms-2" : statusInfo.className;
+	    };
+
+	</script>
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-md-6 mb-4">
+				<img src={{ asset(product.image.url) }} alt="Product" class="img-fluid rounded mb-3 product-image" id="mainImage">
+			</div>
+
+			<div class="col-md-6">
+				<h2 class="mb-3">{{ product.name }}</h2>
+
+				<div class="mb-3">
+					<span class="h4 me-2">{{ product.price }}
+						€</span>
+				</div>
+				<div class="mask">
+					<div class="d-flex justify-content-start align-items-end h-100">
+						<h5>
+							<span class="badge bg-success ms-2">{{ product.category.description }}</span>
+						</h5>
+						<h5>
+							{% if product.status.value == "rupture de stock" %}
+								<span id="status-info" class="badge bg-danger ms-2">{{ product.status.value }}</span>
+							{% elseif product.status.value == "précommande" %}
+								<span id="status-info" class="badge bg-info ms-2">{{ product.status.value }}</span>
+							{% else %}
+								<span id="status-info" class="badge bg-success ms-2">{{ product.status.value }}</span>
+							{% endif %}
+						</h5>
+						<h5>
+							{% if product.stock > 0 %}
+								<span id="stock-info" class="badge bg-success ms-2">Stock :
+									{{ product.stock }}</span>
+							{% else %}
+								<span id="stock-info" class="badge bg-danger ms-2">Stock :
+									{{ product.stock }}</span>
+							{% endif %}
+						</h5>
+					</div>
+				</div>
+				<div class="mb-3">
+					<span class="fa fa-star {% if rating >= 1 %}checked{% endif %}"></span>
+					<span class="fa fa-star {% if rating >= 2 %}checked{% endif %}"></span>
+					<span class="fa fa-star {% if rating >= 3 %}checked{% endif %}"></span>
+					<span class="fa fa-star {% if rating >= 4 %}checked{% endif %}"></span>
+					<span class="fa fa-star {% if rating >= 5 %}checked{% endif %}"></span>
+					<span class="ms-2">{{ rating }}
+						(120 reviews)</span>
+				</div>
+				<p class="mb-4">{{ product.description }}</p>
+				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+					{{ form_start(form, {'method': 'POST', 'action': path('product_detail', {id: product.id})}) }}
+					<div class="form-group">
+
+						{{ form_label(form.quantity) }}
+						{{ form_widget(form.quantity, {
+            'attr': {
+                'class': 'form-control ' ~ (form.quantity.vars.valid ? '' : 'is-invalid')
+            }
+        }) }}
+						<div class="invalid-feedback">
+							{{ form_errors(form.quantity) }}
+						</div>
+					</div>
+					{{ form_widget(form.add, {'attr': {'class': 'btn btn-warning w-25'}}) }}
+					{{ form_end(form) }}
+				{% else %}
+					<div class="alert alert-primary">
+						Connectez vous pour ajouter ce produit à votre panier.
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

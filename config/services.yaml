@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     mercureSecretKey: "%env(MERCURE_JWT_SECRET)%"
+    MERCURE_URL: '%env(MERCURE_URL)%'
+    MERCURE_PUBLIC_URL: '%env(MERCURE_PUBLIC_URL)%'
 
 services:
     # default configuration for services in *this* file

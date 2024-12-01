@@ -62,18 +62,25 @@
 						<a class="nav-link dropdown-toggle {% if app.request.attributes.get('_route') == 'product_by_categ' %}active{% endif %}" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">admin</a>
 						<div class="dropdown-menu">
 							<a class="dropdown-item" href="{{ path('admin_dashboard') }}">{{'admin_dashboard'|trans}}</a>
-							<a class="dropdown-item" href="#">liste produits</a>
-							<a class="dropdown-item" href="#">etc</a>
+							<a class="dropdown-item" href="{{ path('product_new') }}">Nouveau produit</a>
+							<a class="dropdown-item" href="{{ path('image_new') }}">Nouvelle image</a>
+							<a class="dropdown-item" href="{{ path('category_new') }}">Nouvelle catégorie</a>
 						</div>
 					</li>
 				{% endif %}
-				<li class="nav-item">
-					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-						<a href="{{ path('app_logout') }}" class="nav-link {% if app.request.attributes.get('_route') == 'app_logout' %}active{% endif %}">Logout</a>
-					{% else %}
+
+				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+						<li class="nav-item">
+							<a href="{{ path('cart') }}" class="nav-link {% if app.request.attributes.get('_route') == 'cart' %}active{% endif %}">Panier</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ path('app_logout') }}" class="nav-link {% if app.request.attributes.get('_route') == 'app_logout' %}active{% endif %}">Logout</a>
+						</li>
+				{% else %}
+					<li class="nav-item">
 						<a href="{{ path('app_login') }}" class="nav-link {% if app.request.attributes.get('_route') == 'app_login' %}active{% endif %}">Login</a>
-					{% endif %}
-				</li>
+					</li>
+				{% endif %}
 			</ul>
 		</div>
 	</div>

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Nouvelle catégorie
+	· CubeMarket
+{% endblock %}
+
+{% block body %}
+    <h1>Ajout d'une catégorie</h1>
+	<div class="container">
+		{{ form_start(form) }}
+		{{ form_row(form.description) }}
+
+		<button type="submit">Ajouter</button>
+		{{ form_end(form) }}
+
+		<a href="{{ path('admin_dashboard') }}">{{ 'back_to_dashboard'|trans }}</a>
+	</div>
+{% endblock %}

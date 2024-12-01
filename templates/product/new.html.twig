@@ -1,24 +1,28 @@
 {% extends 'base.html.twig' %}
- 
-{% block title %}{{ 'new_product'|trans }} · CubeMarket{% endblock %}
- 
-{% block body %}
-    <h1>{{ 'add_new_product'|trans }}</h1>
- 
-    {{ form_start(form) }}
-        {{ form_row(form.name) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.price) }}
-        {{ form_row(form.stock) }}
-        {{ form_row(form.status) }}
-        {{ form_row(form.wca) }}    
-        {{ form_row(form.category) }}
-        {{ form_row(form.image) }}
 
-        <button type="submit">Ajouter</button>
-    {{ form_end(form) }}
- 
-    <a href="{{ path('product_index') }}">{{ 'back_to_product_list'|trans }}</a>
-    <br>
-    <a href="{{ path('admin_dashboard') }}">{{ 'back_to_dashboard'|trans }}</a>
+{% block title %}
+	{{ 'new_product'|trans }}
+	· CubeMarket
+{% endblock %}
+
+{% block body %}
+	<h1>{{ 'add_new_product'|trans }}</h1>
+	<div class="container">
+		{{ form_start(form) }}
+		{{ form_row(form.name) }}
+		{{ form_row(form.description) }}
+		{{ form_row(form.price) }}
+		{{ form_row(form.stock) }}
+		{{ form_row(form.status) }}
+		{{ form_row(form.wca) }}
+		{{ form_row(form.category) }}
+		{{ form_row(form.image) }}
+
+		<button type="submit">Ajouter</button>
+		{{ form_end(form) }}
+
+		<a href="{{ path('product_index') }}">{{ 'back_to_product_list'|trans }}</a>
+		<br>
+		<a href="{{ path('admin_dashboard') }}">{{ 'back_to_dashboard'|trans }}</a>
+	</div>
 {% endblock %}

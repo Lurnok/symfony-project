@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier
+{% endblock %}
+
+{% block body %}
+	 <script>
+			if (typeof mercureHubUrl === 'undefined') {
+			    var mercureHubUrl = '{{ mercureHubUrl|e('js') }}';
+			}
+				    const productIds2 = {{ cartItems|map(product => {'id' : product.id, 'quantity' : product.quantity})|json_encode|raw }};
+					const productQuantities = {{ cartItems|map(product => product.quantity)|json_encode }};
+
+				    productIds2.forEach(product => {
+				        const topicUrl = `/products/${product.id}/stock`;
+				        const eventSource = new EventSource(`${mercureHubUrl}?topic=${encodeURIComponent(topicUrl)}`);
+				
+				        eventSource.onmessage = function(event) {
+				            const data = JSON.parse(event.data);
+				            const errMess = document.querySelector(`#err-mess`);
+							const payment = document.querySelector(`#payment`);
+							if(errMess && payment){
+								if(data.stock < product.quantity){
+									errMess.hidden = false;
+									payment.hidden = true;
+								}
+							}
+				        };
+				    });
+				</script>
+	{% set total =0.0 %}
+
+	<div class="container">
+		<h1 class="title">Mon panier</h1>
+		<br>
+		<div id="err-mess" class="row" {% if cartValid %} hidden {% endif %}>
+			<div class="alert alert-dismissible alert-danger">
+				Certains produits de votre panier sont actuellement indisponibles.
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-9">
+				{% if cartItems|length > 0 %}
+					<table class="table table-bordered">
+						<thead>
+							<tr class="table-dark">
+								<th scope="col">Nom</th>
+								<th scope="col">Prix unitaire</th>
+								<th scope="col">Quantité</th>
+								<th scope="col">Total</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for item in cartItems %}
+								{% set total = total + item.productPrice * item.quantity %}
+								<tr>
+									<th scope="row">{{ item.name }}</th>
+									<td>{{ item.productPrice }}
+										€</td>
+									<td>{{ item.quantity }}</td>
+									<td>{{ item.productPrice * item.quantity }}
+										€</td>
+									<td class="text-center">
+										<form action="{{ path('deleteFromCart') }}" method="post" onsubmit="return confirm('Are you sure you want to remove this product?');">
+											<input type="hidden" name="_method" value="POST">
+											<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.name) }}">
+											<input type="hidden" name="name" value="{{ item.name }}">
+											<button type="submit" class="btn btn-danger">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewbox="0 0 16 16">
+													<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+													<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+												</svg>
+											</button>
+										</form>
+
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				{% else %}
+					<p>
+						Votre panier est vide.
+					</p>
+				{% endif %}
+			</div>
+			<div class="col">
+				<div class="card border-dark mb-3" style="max-width: 20rem;">
+					<div class="card-body">
+						<h4 class="card-title">Total commande</h4>
+						<p class="card-text">
+							Produits :
+							{{ total }}
+							€
+							<br>
+							Frais de livraison : 0 €
+						</p>
+						<p class="card-text">
+							<b>Total :
+							</b>
+							{{ total }}
+							€</p>
+
+	
+						<div id="payment" {% if (not cartValid) or (cartItems|length == 0) %} hidden {% endif %} >
+							{{ form_start(form, {'method': 'POST', 'action': path('cart')}) }}
+							{{ form_end(form) }}
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="alert alert-dismissible alert-success">
+				Pour célébrer le lancement du site, les frais de livraison sont offerts !
+			</div>
+		</div>
+	</div>
+{% endblock %}

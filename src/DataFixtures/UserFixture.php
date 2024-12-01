@@ -16,7 +16,7 @@ class UserFixture extends Fixture implements DependentFixtureInterface
     private const USER_REFERENCE = 'user';
     private $userPasswordHasherInterface;
 
-    public function __construct (UserPasswordHasherInterface $userPasswordHasherInterface) 
+    public function __construct(UserPasswordHasherInterface $userPasswordHasherInterface)
     {
         $this->userPasswordHasherInterface = $userPasswordHasherInterface;
     }
@@ -29,7 +29,7 @@ class UserFixture extends Fixture implements DependentFixtureInterface
         $user1->setRoles([RolesEnum::admin]);
         $user1->setFirstName("Lucas");
         $user1->setLastName("JORDAN");
-        $user1->setPassword( $this->userPasswordHasherInterface->hashPassword($user1, "adminpass"));
+        $user1->setPassword($this->userPasswordHasherInterface->hashPassword($user1, "adminpass"));
         $manager->persist($user1);
         $this->addReference(self::USER_REFERENCE . '_1', $user1);
 
@@ -39,7 +39,7 @@ class UserFixture extends Fixture implements DependentFixtureInterface
         $user2->setRoles([RolesEnum::client]);
         $user2->setFirstName("Thomas");
         $user2->setLastName("Ducret");
-        $user2->setPassword( $this->userPasswordHasherInterface->hashPassword($user2, "GDgroMuscl"));
+        $user2->setPassword($this->userPasswordHasherInterface->hashPassword($user2, "GDgroMuscl"));
         $manager->persist($user2);
         $this->addReference(self::USER_REFERENCE . '_2', $user2);
 
@@ -49,7 +49,7 @@ class UserFixture extends Fixture implements DependentFixtureInterface
         $user3->setRoles([RolesEnum::client]);
         $user3->setFirstName("Emmanuel");
         $user3->setLastName("Macron");
-        $user3->setPassword( $this->userPasswordHasherInterface->hashPassword($user3, "lovebrigitte"));
+        $user3->setPassword($this->userPasswordHasherInterface->hashPassword($user3, "lovebrigitte"));
         $manager->persist($user3);
         $this->addReference(self::USER_REFERENCE . '_3', $user3);
 
@@ -59,7 +59,7 @@ class UserFixture extends Fixture implements DependentFixtureInterface
         $user4->setRoles([RolesEnum::client]);
         $user4->setFirstName("Pierre");
         $user4->setLastName("Blanchet");
-        $user4->setPassword( $this->userPasswordHasherInterface->hashPassword($user4, "password4"));
+        $user4->setPassword($this->userPasswordHasherInterface->hashPassword($user4, "password4"));
         $manager->persist($user4);
         $this->addReference(self::USER_REFERENCE . '_4', $user4);
 
@@ -69,7 +69,7 @@ class UserFixture extends Fixture implements DependentFixtureInterface
         $user5->setRoles([RolesEnum::client]);
         $user5->setFirstName("Joe");
         $user5->setLastName("Biden");
-        $user5->setPassword( $this->userPasswordHasherInterface->hashPassword($user5, "icecream"));
+        $user5->setPassword($this->userPasswordHasherInterface->hashPassword($user5, "icecream"));
         $manager->persist($user5);
         $this->addReference(self::USER_REFERENCE . '_5', $user5);
 
@@ -79,7 +79,7 @@ class UserFixture extends Fixture implements DependentFixtureInterface
         $user6->setRoles([RolesEnum::client]);
         $user6->setFirstName("Grem");
         $user6->setLastName("Gremmagel");
-        $user6->setPassword( $this->userPasswordHasherInterface->hashPassword($user6, "grem"));
+        $user6->setPassword($this->userPasswordHasherInterface->hashPassword($user6, "grem"));
         $manager->persist($user6);
         $this->addReference(self::USER_REFERENCE . '_6', $user6);
 
@@ -89,7 +89,7 @@ class UserFixture extends Fixture implements DependentFixtureInterface
         $user7->setRoles([RolesEnum::client]);
         $user7->setFirstName("Personne");
         $user7->setLastName("Humain");
-        $user7->setPassword( $this->userPasswordHasherInterface->hashPassword($user7, "jesuisunhumain"));
+        $user7->setPassword($this->userPasswordHasherInterface->hashPassword($user7, "jesuisunhumain"));
         $manager->persist($user7);
         $this->addReference(self::USER_REFERENCE . '_7', $user7);
 
@@ -99,7 +99,7 @@ class UserFixture extends Fixture implements DependentFixtureInterface
         $user8->setRoles([RolesEnum::client]);
         $user8->setFirstName("Gabin");
         $user8->setLastName("Dupont");
-        $user8->setPassword( $this->userPasswordHasherInterface->hashPassword($user8, "cubeurfou"));
+        $user8->setPassword($this->userPasswordHasherInterface->hashPassword($user8, "cubeurfou"));
         $manager->persist($user8);
         $this->addReference(self::USER_REFERENCE . '_8', $user8);
 
@@ -109,7 +109,7 @@ class UserFixture extends Fixture implements DependentFixtureInterface
         $user9->setRoles([RolesEnum::client]);
         $user9->setFirstName("Margaux");
         $user9->setLastName("Marchand");
-        $user9->setPassword( $this->userPasswordHasherInterface->hashPassword($user9, "azerty1234"));
+        $user9->setPassword($this->userPasswordHasherInterface->hashPassword($user9, "azerty1234"));
         $manager->persist($user9);
         $this->addReference(self::USER_REFERENCE . '_9', $user9);
 
@@ -119,7 +119,7 @@ class UserFixture extends Fixture implements DependentFixtureInterface
         $user10->setRoles([RolesEnum::client]);
         $user10->setFirstName("Osama");
         $user10->setLastName("Triki");
-        $user10->setPassword( $this->userPasswordHasherInterface->hashPassword($user10, "enfantcave"));
+        $user10->setPassword($this->userPasswordHasherInterface->hashPassword($user10, "enfantcave"));
         $manager->persist($user10);
         $this->addReference(self::USER_REFERENCE . '_10', $user10);
 
@@ -129,7 +129,7 @@ class UserFixture extends Fixture implements DependentFixtureInterface
         $user11->setRoles([RolesEnum::client]);
         $user11->setFirstName("Julien");
         $user11->setLastName("Maaroufi");
-        $user11->setPassword( $this->userPasswordHasherInterface->hashPassword($user11, "julientrobg"));
+        $user11->setPassword($this->userPasswordHasherInterface->hashPassword($user11, "julientrobg"));
         $manager->persist($user11);
         $this->addReference(self::USER_REFERENCE . '_11', $user11);
 

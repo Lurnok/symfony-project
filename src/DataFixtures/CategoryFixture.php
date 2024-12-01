@@ -43,7 +43,7 @@ class CategoryFixture extends Fixture
         $category6->setDescription('7x7');
         $manager->persist($category6);
         $this->addReference(self::CATEGORY_REFERENCE . '_6', $category6);
-        
+
         $category8 = new Category();
         $category8->setDescription('Megaminx');
         $manager->persist($category8);

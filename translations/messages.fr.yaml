@@ -7,7 +7,7 @@ cuboids : Cuboïdes
 shape_mods : Shape Mods
 welcome_title : Bienvenue sur CubeMarket !
 welcome_message : Parcourir nos superbes puzzles
-admin_dashboard : Tableau de bord administrateur
+admin_dashboard : Tableau de bord
 new_product : Nouveau produit
 add_new_product : Ajout d'un nouveau produit
 back_to_product_list : Retour à la liste des produits

@@ -8,9 +8,9 @@ use App\Entity\Address;
 
 class AddressFixture extends Fixture
 {
-    
+
     private const ADDRESS_REFERENCE = 'address';
-    
+
     public function load(ObjectManager $manager)
     {
         $address1 = new Address();

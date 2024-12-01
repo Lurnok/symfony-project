@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\OrderItemRepository;
 use App\Repository\OrderRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,12 +19,14 @@ class OrderController extends AbstractController
     }
 
     #[Route('/order/detail/{id}', name: 'order_detail')]
-    public function orderDetail(OrderRepository $orderRepository, $id): Response
+    public function orderDetail(OrderRepository $orderRepository, $id, OrderItemRepository $orderItemRepository): Response
     {
         $order = $orderRepository->findOneById($id);
+        $orderItems = $orderItemRepository->findAllByOrder($id);
 
-        return $this->render('order/product_detail.html.twig',[
-            'order' => $order
+        return $this->render('order/order_detail.html.twig', [
+            'order' => $order,
+            'orderItems' => $orderItems,
         ]);
     }
 }

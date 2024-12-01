@@ -31,11 +31,14 @@ class AdminController extends AbstractController
 
         $chart = $chartBuilder->createChart(Chart::TYPE_PIE);
 
+        dump($percentages);
+
         $chart->setData([
             'labels' => [
-                "Disponible",
-                "En précommande",
-                "Indisponible"
+                $percentages[0]['status'] ?? '', // Fallback to 0 if not set
+                $percentages[1]['status'] ?? '',
+                $percentages[2]['status'] ?? '', // Fallback to 0 if not set
+                $percentages[3]['status'] ?? '',
             ],
             'datasets' => [
                 [
@@ -48,12 +51,13 @@ class AdminController extends AbstractController
                     'data' => [
                         $percentages[0]['percentage'] ?? 0, // Fallback to 0 if not set
                         $percentages[1]['percentage'] ?? 0,
-                        100 - (($percentages[0]['percentage'] ?? 0) + ($percentages[1]['percentage'] ?? 0))
+                        $percentages[2]['percentage'] ?? 0, // Fallback to 0 if not set
+                        $percentages[3]['percentage'] ?? 0,
                     ],
                 ],
             ],
         ]);
-        
+
         $profitsByMonth = $orderRepository->getProfitsByMonth();
 
         return $this->render('admin/dashboard.html.twig', [

@@ -17,8 +17,8 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $order = new Order();
-        $order->setUser($this->getReference(self::USER_REFERENCE.'_5'));
-        $order->setReference('ORD-'.strtoupper(uniqid()));
+        $order->setUser($this->getReference(self::USER_REFERENCE . '_5'));
+        $order->setReference('ORD-' . strtoupper(uniqid()));
         $order->setStatus(OrderStatusEnum::expedie);
         $date = new DateTimeImmutable();
         $order->setCreatedAt($date);
@@ -28,10 +28,10 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
 
 
         $order = new Order();
-        $order->setUser($this->getReference(self::USER_REFERENCE.'_3'));
-        $order->setReference('ORD-'.strtoupper(uniqid()));
+        $order->setUser($this->getReference(self::USER_REFERENCE . '_3'));
+        $order->setReference('ORD-' . strtoupper(uniqid()));
         $order->setStatus(OrderStatusEnum::expedie);
-        $date = new DateTimeImmutable();
+        $date = DateTimeImmutable::createFromFormat("d-m-Y", "10-11-2024");
         $order->setCreatedAt($date);
 
         $manager->persist($order);
@@ -39,10 +39,10 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
 
 
         $order = new Order();
-        $order->setUser($this->getReference(self::USER_REFERENCE.'_7'));
-        $order->setReference('ORD-'.strtoupper(uniqid()));
+        $order->setUser($this->getReference(self::USER_REFERENCE . '_7'));
+        $order->setReference('ORD-' . strtoupper(uniqid()));
         $order->setStatus(OrderStatusEnum::expedie);
-        $date = new DateTimeImmutable();
+        $date = DateTimeImmutable::createFromFormat("d-m-Y", "23-10-2024");
         $order->setCreatedAt($date);
 
         $manager->persist($order);
@@ -50,10 +50,10 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
 
 
         $order = new Order();
-        $order->setUser($this->getReference(self::USER_REFERENCE.'_5'));
-        $order->setReference('ORD-'.strtoupper(uniqid()));
+        $order->setUser($this->getReference(self::USER_REFERENCE . '_5'));
+        $order->setReference('ORD-' . strtoupper(uniqid()));
         $order->setStatus(OrderStatusEnum::expedie);
-        $date = new DateTimeImmutable();
+        $date = DateTimeImmutable::createFromFormat("d-m-Y", "14-09-2024");
         $order->setCreatedAt($date);
 
         $manager->persist($order);
@@ -61,10 +61,10 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
 
 
         $order = new Order();
-        $order->setUser($this->getReference(self::USER_REFERENCE.'_2'));
-        $order->setReference('ORD-'.strtoupper(uniqid()));
+        $order->setUser($this->getReference(self::USER_REFERENCE . '_2'));
+        $order->setReference('ORD-' . strtoupper(uniqid()));
         $order->setStatus(OrderStatusEnum::expedie);
-        $date = new DateTimeImmutable();
+        $date = DateTimeImmutable::createFromFormat("d-m-Y", "05-08-2024");
         $order->setCreatedAt($date);
 
         $manager->persist($order);

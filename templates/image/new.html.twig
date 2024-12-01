@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Nouvelle image
+	· CubeMarket
+{% endblock %}
+
+{% block body %}
+    <h1>Ajout d'une image</h1>
+	<div class="container">
+		{{ form_start(form) }}
+		<p>Format : /images/[categorie]/[nom].jpg</p>
+		{{ form_row(form.url) }}
+		<p>Ajouter manuellement le fichier au chemin spécifié.</p>
+
+		<button type="submit">Ajouter</button>
+		{{ form_end(form) }}
+
+		<a href="{{ path('admin_dashboard') }}">{{ 'back_to_dashboard'|trans }}</a>
+	</div>
+{% endblock %}

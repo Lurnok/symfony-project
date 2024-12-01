@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detail de la commande
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1>{{ order.reference }}</h1>
+
+		<h5>Status : {{ order.status.value }}</h5>
+		<h5>Client : {{ order.user.email }}</h5>
+		<h5>Date : {{ order.createdAt|date('d-m-Y') }}</h5>
+		<br>
+		<h5>Produits :</h5>
+
+		<table class="table table-bordered">
+			<thead>
+				<tr class="table-dark">
+					<th scope="col">Nom</th>
+					<th scope="col">Prix unitaire</th>
+					<th scope="col">Quantité</th>
+					<th scope="col">Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in orderItems %}
+					<tr>
+						<th scope="row">{{ item.name }}</th>
+						<td>{{ item.productPrice }} €</td>
+						<td>{{ item.quantity }}</td>
+						<td>{{ item.productPrice * item.quantity }} €</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}

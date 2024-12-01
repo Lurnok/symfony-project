@@ -10,8 +10,8 @@
 6. Faire ```php bin/console doctrine:fixtures:load```
 7. Aller sur ```http://localhost:8081```
 
-Compte administrateur - login : lucas.jordan@cubemarket.fr / mdp : adminpass
-Compte standard - login : thomas.ducret@hotmail.fr / mdp : GDgroMuscl
+- Compte administrateur - login : lucas.jordan@cubemarket.fr / mdp : adminpass
+- Compte standard - login : thomas.ducret@hotmail.fr / mdp : GDgroMuscl
 
 ## N.B.
 

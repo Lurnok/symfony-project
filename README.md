@@ -1,4 +1,4 @@
-# Projet site E-Commerce en  symfony, Lucas Jordan : CubeMarker
+# Projet site E-Commerce en  symfony, Lucas Jordan : CubeMarket
 
 ## Installation (pour M. Pertré, après avoir cloné le repo)
 
